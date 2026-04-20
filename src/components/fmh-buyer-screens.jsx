@@ -1,6 +1,8 @@
-// fmh-buyer-screens.jsx — LandingBuyer, FormScreen, PremiumScreen, SuccessScreen, MyRequirements
+import { useState as uS, useEffect as uE } from 'react';
+import { Icon } from './fmh-icons';
+import { MOCK_REQUIREMENTS } from '../data/fmh-data';
 
-const { useState: uS, useEffect: uE } = React;
+// src/components/fmh-buyer-screens.jsx — LandingBuyer, FormScreen, PremiumScreen, SuccessScreen, MyRequirements
 
 // ── shared ───────────────────────────────────────────────────
 const buyerBackBtn = { width:38, height:38, borderRadius:100, border:'1.5px solid var(--bdr)', background:'var(--surf)', cursor:'pointer', display:'flex', alignItems:'center', justifyContent:'center', flexShrink:0 };
@@ -8,7 +10,7 @@ const buyerLabel = { display:'block', fontSize:13, fontWeight:600, color:'var(--
 const buyerH2 = { fontSize:24, fontWeight:700, color:'var(--t1)', letterSpacing:'-0.03em', marginBottom:8, lineHeight:1.28 };
 const buyerSub = { fontSize:15, color:'var(--t2)', marginBottom:22, lineHeight:1.65 };
 
-function Chip({ active, onClick, children, small }) {
+export function Chip({ active, onClick, children, small }) {
   return (
     <button onClick={onClick} style={{
       padding: small ? '8px 13px' : '10px 16px', borderRadius:100, whiteSpace:'nowrap',
@@ -20,7 +22,7 @@ function Chip({ active, onClick, children, small }) {
   );
 }
 
-function Toggle({ on, onChange }) {
+export function Toggle({ on, onChange }) {
   return (
     <div onClick={onChange} style={{ width:44, height:26, borderRadius:100, position:'relative', cursor:'pointer', background: on ? 'var(--accent)' : 'var(--bdr)', transition:'background 0.22s', flexShrink:0 }}>
       <div style={{ position:'absolute', top:3, left: on ? 21 : 3, width:20, height:20, borderRadius:100, background:'white', boxShadow:'0 1px 4px rgba(0,0,0,0.2)', transition:'left 0.22s cubic-bezier(0.34,1.56,0.64,1)' }}/>
@@ -29,7 +31,7 @@ function Toggle({ on, onChange }) {
 }
 
 // ── Landing (Buyer, logged in) ───────────────────────────────
-function LandingBuyerScreen({ userName, onPost, onViewReqs, onViewNotifs }) {
+export function LandingBuyerScreen({ userName, onPost, onViewReqs, onViewNotifs }) {
   const hour = new Date().getHours();
   const greet = hour < 12 ? 'Good morning' : hour < 17 ? 'Good afternoon' : 'Good evening';
 
@@ -113,7 +115,7 @@ function LandingBuyerScreen({ userName, onPost, onViewReqs, onViewNotifs }) {
 }
 
 // ── My Requirements ──────────────────────────────────────────
-function MyRequirementsScreen({ onPost, onBack }) {
+export function MyRequirementsScreen({ onPost, onBack }) {
   const [tab, setTab] = uS('active');
   const filtered = MOCK_REQUIREMENTS.filter(r => tab === 'all' || r.status === tab);
 
@@ -174,7 +176,7 @@ function MyRequirementsScreen({ onPost, onBack }) {
 // ── Requirement Form (5 steps) ───────────────────────────────
 const FORM_STEPS = ['Property','Budget','Preferences','Timeline','Contact'];
 
-function FormScreen({ onComplete, onBack }) {
+export function FormScreen({ onComplete, onBack }) {
   const [step, setStep] = uS(0);
   const [data, setData] = uS({ type:'', city:'', area:'', budget:55, budgetUnit:'L', furnishing:'', parking:false, facing:'', timeline:'', name:'', phone:'' });
   const set = (k,v) => setData(d => ({...d,[k]:v}));
@@ -321,7 +323,7 @@ function FormScreen({ onComplete, onBack }) {
 }
 
 // ── Premium Qualification ────────────────────────────────────
-function PremiumScreen({ onAccept, onSkip }) {
+export function PremiumScreen({ onAccept, onSkip }) {
   const [ready, setReady] = uS(null);
   const [calls, setCalls] = uS(null);
   const [confirm, setConfirm] = uS(false);
@@ -380,7 +382,7 @@ function PremiumScreen({ onAccept, onSkip }) {
 }
 
 // ── Success ──────────────────────────────────────────────────
-function SuccessScreen({ isPriority, onDone }) {
+export function SuccessScreen({ isPriority, onDone }) {
   const [show, setShow] = uS(false);
   uE(() => { setTimeout(() => setShow(true), 100); }, []);
 
@@ -434,5 +436,3 @@ function SuccessScreen({ isPriority, onDone }) {
     </div>
   );
 }
-
-Object.assign(window, { LandingBuyerScreen, MyRequirementsScreen, FormScreen, PremiumScreen, SuccessScreen, Chip, Toggle });

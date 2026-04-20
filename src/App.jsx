@@ -1,57 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>FindMyHome v2</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet"/>
-<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
-<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
-<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
-<script src="fmh-data.js"></script>
-<script type="text/babel" src="fmh-icons.jsx"></script>
-
-<script type="text/babel" src="fmh-buyer-screens.jsx"></script>
-<script type="text/babel" src="fmh-auth-screens.jsx"></script>
-<script type="text/babel" src="fmh-broker-screens.jsx"></script>
-<script type="text/babel" src="fmh-misc-screens.jsx"></script>
-<style>
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html, body { height: 100%; font-family: 'DM Sans', sans-serif; }
-body { display: flex; flex-direction: column; min-height: 100vh; margin: 0; padding: 0; background: var(--bg); transition: background 0.4s ease; }
-#root { display: flex; flex-direction: column; min-height: 100vh; }
-.app-shell { display: flex; flex-direction: column; min-height: 100vh; width: 100%; max-width: 480px; margin: 0 auto; background: var(--bg); position: relative; }
-.app-shell > .app-content { flex: 1; display: flex; flex-direction: column; overflow: auto; position: relative; }
-.app-shell > .app-content > .scr-enter { flex: 1; display: flex; flex-direction: column; }
-
-/* Slate defaults */
-:root {
-  --accent:   oklch(38% 0.16 255);
-  --accent-l: oklch(94% 0.04 255);
-  --accent-m: oklch(55% 0.13 255);
-  --trust:    oklch(52% 0.14 162);
-  --trust-l:  oklch(94% 0.05 162);
-  --bg:       oklch(98.5% 0.004 240);
-  --surf:     #ffffff;
-  --bdr:      oklch(91% 0.01 240);
-  --t1:       oklch(14% 0.01 255);
-  --t2:       oklch(45% 0.01 255);
-  --t3:       oklch(65% 0.01 255);
-  --danger:   oklch(55% 0.18 25);
-}
-
-@keyframes fmhFadeUp   { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
-@keyframes fmhSlideIn  { from { opacity:0; transform:translateX(28px); } to { opacity:1; transform:translateX(0); } }
-@keyframes fmhShake    { 0%,100%{transform:translateX(0)} 20%{transform:translateX(-10px)} 40%{transform:translateX(10px)} 60%{transform:translateX(-8px)} 80%{transform:translateX(8px)} }
-@keyframes fmhPop      { from { transform:scale(0.6); opacity:0; } to { transform:scale(1); opacity:1; } }
-
-.scr-enter { animation: fmhSlideIn 0.32s cubic-bezier(0.32,0.72,0,1) forwards; }
-</style>
-</head>
-<body>
-<div id="root"></div>
-<script type="text/babel">
-const { useState, useEffect, useCallback } = React;
+import { useState, useEffect, useCallback } from 'react';
+import { OnboardingScreen, AuthPhoneScreen, AuthOTPScreen } from './components/fmh-auth-screens';
+import { LandingBuyerScreen, MyRequirementsScreen, FormScreen, PremiumScreen, SuccessScreen } from './components/fmh-buyer-screens';
+import { BrokerDashboard, LeadDetailScreen, ContactRevealScreen, BrokerProfileScreen } from './components/fmh-broker-screens';
+import { SettingsScreen, NotificationsScreen } from './components/fmh-misc-screens';
+import { THEMES, applyTheme, MOCK_LEADS } from './data/fmh-data';
+import { Icon } from './components/fmh-icons';
+import './index.css';
 
 const BUYER_TABS  = [
   { id:'home',     icon:'home',     label:'Home'      },
@@ -65,11 +19,11 @@ const BROKER_TABS = [
   { id:'settings', icon:'settings', label:'Settings'  },
 ];
 
-const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+const TWEAK_DEFAULTS = {
   "startScreen": "onboarding",
   "themeKey": "slate",
   "userName": "Rahul"
-}/*EDITMODE-END*/;
+};
 
 function TabBar({ tabs, active, onTab }) {
   return (
@@ -92,7 +46,7 @@ function TabBar({ tabs, active, onTab }) {
   );
 }
 
-function App() {
+export default function App() {
   const saved = JSON.parse(localStorage.getItem('fmh2_state') || '{}');
   const [themeKey, setThemeKeyRaw] = useState(saved.themeKey || TWEAK_DEFAULTS.themeKey);
   const [screen,   setScreenRaw]   = useState(saved.screen   || TWEAK_DEFAULTS.startScreen);
@@ -168,7 +122,6 @@ function App() {
   }, []);
 
   const theme = THEMES[themeKey] || THEMES.slate;
-  const isDark = theme.isDark;
 
   // ── screen map ───────────────────────────────────────────
   const screens = {
@@ -209,14 +162,6 @@ function App() {
 
   const showBuyerTabs  = loggedIn && userType==='buyer'  && !['form','premium','success'].includes(screen);
   const showBrokerTabs = loggedIn && userType==='broker' && !['lead_detail','contact_reveal'].includes(screen);
-
-  // pill nav (prototype jump bar)
-  const allScreens = Object.keys(screens);
-  const navGroups = [
-    { label:'Auth',   screens:['onboarding','auth_phone','auth_otp'] },
-    { label:'Buyer',  screens:['buyer_home','buyer_reqs','buyer_notifs','buyer_settings','form','premium','success'] },
-    { label:'Broker', screens:['broker_leads','broker_profile','broker_settings','lead_detail','contact_reveal'] },
-  ];
 
   return (
     <div className="app-shell">
@@ -265,8 +210,3 @@ function App() {
     </div>
   );
 }
-
-ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
-</script>
-</body>
-</html>

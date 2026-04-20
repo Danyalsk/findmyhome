@@ -1,6 +1,8 @@
-// fmh-icons.jsx — FindMyHome icon system
+import { Fragment } from 'react';
 
-function Icon({ name, size = 20, color = 'currentColor', style: s }) {
+// src/components/fmh-icons.jsx — FindMyHome icon system
+
+export function Icon({ name, size = 20, color = 'currentColor', style: s }) {
   const c = color;
   const icons = {
     shield:       <><path d="M12 2L4 5v6c0 5.25 3.5 10.15 8 11.35C16.5 21.15 20 16.25 20 11V5l-8-3z" fill="none" stroke={c} strokeWidth="1.8" strokeLinejoin="round"/><path d="M9 12l2 2 4-4" stroke={c} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" fill="none"/></>,
@@ -43,5 +45,3 @@ function Icon({ name, size = 20, color = 'currentColor', style: s }) {
     </svg>
   );
 }
-
-Object.assign(window, { Icon });

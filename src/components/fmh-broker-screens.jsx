@@ -1,11 +1,19 @@
-// fmh-broker-screens.jsx — Dashboard, LeadDetail, ContactReveal, BrokerProfile
+import { useState as bS, useEffect as bE, Fragment } from 'react';
+import { Icon } from './fmh-icons';
+import { MOCK_LEADS, MOCK_REVIEWS } from '../data/fmh-data';
 
-const { useState: bS, useEffect: bE } = React;
+// src/components/fmh-broker-screens.jsx — Dashboard, LeadDetail, ContactReveal, BrokerProfile
 
 const bkBtn = { width:38, height:38, borderRadius:100, border:'1.5px solid var(--bdr)', background:'var(--surf)', cursor:'pointer', display:'flex', alignItems:'center', justifyContent:'center', flexShrink:0 };
 
+const Chip = ({ active, onClick, small, children }) => (
+  <div onClick={onClick} style={{ padding: small ? '6px 12px' : '8px 16px', borderRadius: 100, background: active ? 'var(--accent)' : 'var(--surf)', color: active ? 'white' : 'var(--t2)', border: '1px solid', borderColor: active ? 'var(--accent)' : 'var(--bdr)', fontSize: small ? 12 : 14, fontWeight: 600, cursor: 'pointer', whiteSpace: 'nowrap', transition: 'all 0.18s' }}>
+    {children}
+  </div>
+);
+
 // ── Broker Dashboard ─────────────────────────────────────────
-function BrokerDashboard({ onLeadTap, onProfile }) {
+export function BrokerDashboard({ onLeadTap, onProfile }) {
   const [accepted, setAccepted] = bS([]);
   const [filter, setFilter] = bS('all');
   const [credits, setCredits] = bS(12);
@@ -127,7 +135,7 @@ function BrokerDashboard({ onLeadTap, onProfile }) {
 }
 
 // ── Lead Detail ──────────────────────────────────────────────
-function LeadDetailScreen({ lead, onAccept, onBack }) {
+export function LeadDetailScreen({ lead, onAccept, onBack }) {
   const [accepted, setAccepted] = bS(false);
 
   const doAccept = () => {
@@ -161,10 +169,10 @@ function LeadDetailScreen({ lead, onAccept, onBack }) {
                 {lead.initials[0]}*** {lead.name.split(' ')[1]?.[0]}.
               </div>
               <div style={{ display:'flex', alignItems:'center', gap:6, marginTop:4 }}>
-                {lead.verified && <>
+                {lead.verified && <Fragment>
                   <Icon name="badge" size={13} color="var(--trust)"/>
                   <span style={{ fontSize:12, color:'var(--trust)', fontWeight:600 }}>Verified Buyer</span>
-                </>}
+                </Fragment>}
                 <span style={{ fontSize:12, color:'var(--t3)' }}>· {lead.time}</span>
               </div>
             </div>
@@ -232,7 +240,7 @@ function LeadDetailScreen({ lead, onAccept, onBack }) {
           transition:'background 0.3s ease',
           display:'flex', alignItems:'center', justifyContent:'center', gap:8
         }}>
-          {accepted ? <><Icon name="check" size={18} color="white"/>Accepted! Unlocking…</> : 'Accept Lead & Unlock Contact →'}
+          {accepted ? <Fragment><Icon name="check" size={18} color="white"/>Accepted! Unlocking…</Fragment> : 'Accept Lead & Unlock Contact →'}
         </button>
       </div>
     </div>
@@ -240,7 +248,7 @@ function LeadDetailScreen({ lead, onAccept, onBack }) {
 }
 
 // ── Contact Reveal ───────────────────────────────────────────
-function ContactRevealScreen({ lead, onBack }) {
+export function ContactRevealScreen({ lead, onBack }) {
   const [unlocked, setUnlocked] = bS(false);
   const [marked, setMarked] = bS(false);
   const [copied, setCopied] = bS(false);
@@ -351,7 +359,7 @@ function ContactRevealScreen({ lead, onBack }) {
 }
 
 // ── Broker Profile ───────────────────────────────────────────
-function BrokerProfileScreen({ onBack, onSettings }) {
+export function BrokerProfileScreen({ onBack, onSettings }) {
   return (
     <div data-screen-label="12 Broker Profile" style={{ flex:1, overflowY:'auto', background:'var(--bg)', paddingBottom:80 }}>
       <div style={{ padding:'22px 22px 0' }}>
@@ -433,5 +441,3 @@ function BrokerProfileScreen({ onBack, onSettings }) {
     </div>
   );
 }
-
-Object.assign(window, { BrokerDashboard, LeadDetailScreen, ContactRevealScreen, BrokerProfileScreen });

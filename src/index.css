@@ -1,0 +1,30 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; font-family: 'DM Sans', sans-serif; }
+body { display: flex; flex-direction: column; min-height: 100vh; margin: 0; padding: 0; background: var(--bg); transition: background 0.4s ease; }
+#root { display: flex; flex-direction: column; min-height: 100vh; }
+.app-shell { display: flex; flex-direction: column; min-height: 100vh; width: 100%; max-width: 480px; margin: 0 auto; background: var(--bg); position: relative; }
+.app-shell > .app-content { flex: 1; display: flex; flex-direction: column; overflow: auto; position: relative; }
+.app-shell > .app-content > .scr-enter { flex: 1; display: flex; flex-direction: column; }
+
+/* Slate defaults */
+:root {
+  --accent:   oklch(38% 0.16 255);
+  --accent-l: oklch(94% 0.04 255);
+  --accent-m: oklch(55% 0.13 255);
+  --trust:    oklch(52% 0.14 162);
+  --trust-l:  oklch(94% 0.05 162);
+  --bg:       oklch(98.5% 0.004 240);
+  --surf:     #ffffff;
+  --bdr:      oklch(91% 0.01 240);
+  --t1:       oklch(14% 0.01 255);
+  --t2:       oklch(45% 0.01 255);
+  --t3:       oklch(65% 0.01 255);
+  --danger:   oklch(55% 0.18 25);
+}
+
+@keyframes fmhFadeUp   { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
+@keyframes fmhSlideIn  { from { opacity:0; transform:translateX(28px); } to { opacity:1; transform:translateX(0); } }
+@keyframes fmhShake    { 0%,100%{transform:translateX(0)} 20%{transform:translateX(-10px)} 40%{transform:translateX(10px)} 60%{transform:translateX(-8px)} 80%{transform:translateX(8px)} }
+@keyframes fmhPop      { from { transform:scale(0.6); opacity:0; } to { transform:scale(1); opacity:1; } }
+
+.scr-enter { animation: fmhSlideIn 0.32s cubic-bezier(0.32,0.72,0,1) forwards; }

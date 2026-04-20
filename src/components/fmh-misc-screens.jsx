@@ -1,9 +1,11 @@
-// fmh-misc-screens.jsx — Settings, Notifications
+import { useState as mS } from 'react';
+import { Icon } from './fmh-icons';
+import { THEMES, MOCK_NOTIFS } from '../data/fmh-data';
 
-const { useState: mS } = React;
+// src/components/fmh-misc-screens.jsx — Settings, Notifications
 
 // ── Settings ─────────────────────────────────────────────────
-function SettingsScreen({ onBack, onThemeChange, currentTheme, onLogout, userType }) {
+export function SettingsScreen({ onBack, onThemeChange, currentTheme, onLogout, userType }) {
   const [notifMatches, setNotifMatches] = mS(true);
   const [notifCalls,   setNotifCalls]   = mS(true);
   const [notifOffers,  setNotifOffers]  = mS(false);
@@ -31,6 +33,12 @@ function SettingsScreen({ onBack, onThemeChange, currentTheme, onLogout, userTyp
     </div>
   );
 
+  const Toggle = ({ on, onChange }) => (
+    <div onClick={onChange} style={{ width:44, height:26, borderRadius:100, position:'relative', cursor:'pointer', background: on ? 'var(--accent)' : 'var(--bdr)', transition:'background 0.22s', flexShrink:0 }}>
+      <div style={{ position:'absolute', top:3, left: on ? 21 : 3, width:20, height:20, borderRadius:100, background:'white', boxShadow:'0 1px 4px rgba(0,0,0,0.2)', transition:'left 0.22s cubic-bezier(0.34,1.56,0.64,1)' }}/>
+    </div>
+  );
+
   return (
     <div data-screen-label="13 Settings" style={{ flex:1, overflowY:'auto', background:'var(--bg)', paddingBottom:80 }}>
       <div style={{ padding:'22px 22px 0' }}>
@@ -38,8 +46,8 @@ function SettingsScreen({ onBack, onThemeChange, currentTheme, onLogout, userTyp
 
         {/* Account */}
         <Section title="ACCOUNT">
-          <Row icon="user" label={userType === 'broker' ? 'Ramesh Kulkarni' : 'Rahul Sharma'} sub={userType === 'broker' ? 'Broker · KYC Verified' : 'Buyer account'} right={<Icon name="chevron_r" size={16} color="var(--t3)"/>} onClick={()=>{}}/>
-          <Row icon="phone" label="+91 98765 43210" sub="Mobile number" right={<Icon name="chevron_r" size={16} color="var(--t3)"/>} onClick={()=>{}} last/>
+          <Row icon="user" label={userType === 'broker' ? 'Ramesh Kulkarni' : 'Rahul Sharma'} sub={userType === 'broker' ? 'Broker · KYC Verified' : 'Buyer account'} right={<Icon name="chevron_r" size={16} color="var(--t3)"/>} />
+          <Row icon="phone" label="+91 98765 43210" sub="Mobile number" right={<Icon name="chevron_r" size={16} color="var(--t3)"/>}  last/>
         </Section>
 
         {/* Theme */}
@@ -84,13 +92,13 @@ function SettingsScreen({ onBack, onThemeChange, currentTheme, onLogout, userTyp
           <Row icon="lock" label="Number visibility" sub="Max 3 brokers per requirement"
             right={<Toggle on={privacy} onChange={()=>setPrivacy(v=>!v)}/>}
           />
-          <Row icon="shield" label="Data & Privacy policy" right={<Icon name="chevron_r" size={16} color="var(--t3)"/>} onClick={()=>{}} last/>
+          <Row icon="shield" label="Data & Privacy policy" right={<Icon name="chevron_r" size={16} color="var(--t3)"/>}  last/>
         </Section>
 
         {/* Support */}
         <Section title="SUPPORT">
-          <Row icon="info" label="Help & FAQ" right={<Icon name="chevron_r" size={16} color="var(--t3)"/>} onClick={()=>{}}/>
-          <Row icon="note" label="Contact support" sub="We respond within 2 hours" right={<Icon name="chevron_r" size={16} color="var(--t3)"/>} onClick={()=>{}} last/>
+          <Row icon="info" label="Help & FAQ" right={<Icon name="chevron_r" size={16} color="var(--t3)"/>} />
+          <Row icon="note" label="Contact support" sub="We respond within 2 hours" right={<Icon name="chevron_r" size={16} color="var(--t3)"/>}  last/>
         </Section>
 
         {/* Logout */}
@@ -105,7 +113,7 @@ function SettingsScreen({ onBack, onThemeChange, currentTheme, onLogout, userTyp
 }
 
 // ── Notifications ─────────────────────────────────────────────
-function NotificationsScreen({ onBack }) {
+export function NotificationsScreen({ onBack }) {
   const [notifs, setNotifs] = mS(MOCK_NOTIFS);
 
   const markRead = (id) => setNotifs(ns => ns.map(n => n.id===id ? {...n, read:true} : n));
@@ -156,5 +164,3 @@ function NotificationsScreen({ onBack }) {
     </div>
   );
 }
-
-Object.assign(window, { SettingsScreen, NotificationsScreen });

@@ -1,6 +1,7 @@
-// fmh-auth-screens.jsx — Onboarding, Phone Auth, OTP Auth
+import { useState, useEffect, useRef } from 'react';
+import { Icon } from './fmh-icons';
 
-const { useState, useEffect, useRef } = React;
+// src/components/fmh-auth-screens.jsx — Onboarding, Phone Auth, OTP Auth
 
 // ── shared back button style ────────────────────────────────
 const backBtn = {
@@ -17,7 +18,7 @@ const SLIDES = [
   { icon:'lock',    title:'Your privacy,\nalways.',          sub:'Your number shared with max 3 matched brokers. No cold calls, ever.' },
 ];
 
-function OnboardingScreen({ onDone, onBroker }) {
+export function OnboardingScreen({ onDone, onBroker }) {
   const [idx, setIdx] = useState(0);
   const slide = SLIDES[idx];
   const isLast = idx === SLIDES.length - 1;
@@ -82,7 +83,7 @@ function OnboardingScreen({ onDone, onBroker }) {
 }
 
 // ── Phone Auth ───────────────────────────────────────────────
-function AuthPhoneScreen({ onContinue, onBack, userType }) {
+export function AuthPhoneScreen({ onContinue, onBack, userType }) {
   const [phone, setPhone] = useState('');
   const valid = phone.replace(/\D/g,'').length === 10;
 
@@ -138,7 +139,7 @@ function AuthPhoneScreen({ onContinue, onBack, userType }) {
 }
 
 // ── OTP Auth ─────────────────────────────────────────────────
-function AuthOTPScreen({ phone, onVerified, onBack }) {
+export function AuthOTPScreen({ phone, onVerified, onBack }) {
   const [otp, setOtp] = useState(['','','','']);
   const [timer, setTimer] = useState(30);
   const [shake, setShake] = useState(false);
@@ -225,5 +226,3 @@ function AuthOTPScreen({ phone, onVerified, onBack }) {
     </div>
   );
 }
-
-Object.assign(window, { OnboardingScreen, AuthPhoneScreen, AuthOTPScreen });

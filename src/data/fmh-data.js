@@ -1,6 +1,6 @@
-// fmh-data.js — FindMyHome theme system + mock data
+// src/data/fmh-data.js — FindMyHome theme system + mock data
 
-const THEMES = {
+export const THEMES = {
   slate: {
     name: 'Slate', swatch: '#1e3a8a', isDark: false, stage: '#0c0f1a',
     vars: {
@@ -71,7 +71,7 @@ const THEMES = {
   },
 };
 
-function applyTheme(key) {
+export function applyTheme(key) {
   const t = THEMES[key];
   if (!t) return;
   const r = document.documentElement;
@@ -79,7 +79,7 @@ function applyTheme(key) {
   document.body.style.background = t.stage;
 }
 
-const MOCK_LEADS = [
+export const MOCK_LEADS = [
   { id:1, initials:'RS', name:'Rahul Sharma', phone:'+91 98765 43210', whatsapp:'919876543210',
     type:'2 BHK Apartment', city:'Bengaluru', area:'Koramangala', budget:'₹55L',
     timeline:'7 days', priority:true, time:'2 min ago',
@@ -102,24 +102,22 @@ const MOCK_LEADS = [
     note:'Corner plot preferred. Open to ready-to-move options.' },
 ];
 
-const MOCK_REQUIREMENTS = [
+export const MOCK_REQUIREMENTS = [
   { id:1, type:'2 BHK Apartment', area:'Koramangala, Bengaluru', budget:'₹55L',
     timeline:'7 days', status:'active', brokerViews:4, calls:1, postedAt:'2 hours ago', priority:true },
   { id:2, type:'1 BHK Flat', area:'Indiranagar, Bengaluru', budget:'₹30L',
     timeline:'1 month', status:'closed', brokerViews:12, calls:3, postedAt:'3 days ago', priority:false },
 ];
 
-const MOCK_NOTIFS = [
+export const MOCK_NOTIFS = [
   { id:1, icon:'badge', title:'New broker match', body:'Verified broker Ramesh K. is reviewing your 2BHK requirement', time:'5 min ago', read:false },
   { id:2, icon:'phone', title:'Broker wants to call', body:'Sunita Properties matched your Koramangala requirement', time:'1 hr ago', read:false },
   { id:3, icon:'sparkle', title:'Priority boost active', body:'Your lead is now visible to top 3 brokers in your area', time:'2 hr ago', read:true },
   { id:4, icon:'check_circle', title:'Requirement closed', body:'Rate your experience with 1BHK in Indiranagar', time:'3 days ago', read:true },
 ];
 
-const MOCK_REVIEWS = [
+export const MOCK_REVIEWS = [
   { name:'Vikram S.', rating:5, text:'Ramesh was professional and showed us exactly what we wanted. Closed in 10 days.', date:'Mar 2025' },
   { name:'Deepa M.', rating:5, text:'Very responsive. No spam, no fake listings. Highly recommend.', date:'Feb 2025' },
   { name:'Arjun K.', rating:4, text:'Good knowledge of Koramangala area. Could improve on response time.', date:'Jan 2025' },
 ];
-
-Object.assign(window, { THEMES, applyTheme, MOCK_LEADS, MOCK_REQUIREMENTS, MOCK_NOTIFS, MOCK_REVIEWS });

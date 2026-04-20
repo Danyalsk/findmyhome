@@ -32,7 +32,7 @@ function SettingsScreen({ onBack, onThemeChange, currentTheme, onLogout, userTyp
   );
 
   return (
-    <div data-screen-label="13 Settings" style={{ height:'100%', overflowY:'auto', background:'var(--bg)', paddingBottom:80 }}>
+    <div data-screen-label="13 Settings" style={{ flex:1, overflowY:'auto', background:'var(--bg)', paddingBottom:80 }}>
       <div style={{ padding:'22px 22px 0' }}>
         <div style={{ fontSize:22, fontWeight:700, color:'var(--t1)', letterSpacing:'-0.02em', marginBottom:24 }}>Settings</div>
 
@@ -116,7 +116,7 @@ function NotificationsScreen({ onBack }) {
   const iconBg    = (type) => type==='match' ? 'var(--accent-l)' : type==='call' ? 'var(--trust-l)' : 'var(--bdr)';
 
   return (
-    <div data-screen-label="14 Notifications" style={{ height:'100%', overflowY:'auto', background:'var(--bg)', paddingBottom:80 }}>
+    <div data-screen-label="14 Notifications" style={{ flex:1, overflowY:'auto', background:'var(--bg)', paddingBottom:80 }}>
       <div style={{ padding:'22px 22px 0' }}>
         <div style={{ display:'flex', alignItems:'center', justifyContent:'space-between', marginBottom:20 }}>
           <div>

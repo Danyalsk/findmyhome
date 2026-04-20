@@ -17,7 +17,7 @@ function BrokerDashboard({ onLeadTap, onProfile }) {
   );
 
   return (
-    <div data-screen-label="09 Broker Leads" style={{ height:'100%', overflowY:'auto', background:'var(--bg)', paddingBottom:80 }}>
+    <div data-screen-label="09 Broker Leads" style={{ flex:1, overflowY:'auto', background:'var(--bg)', paddingBottom:80 }}>
       <div style={{ padding:'22px 22px 0' }}>
         {/* Header */}
         <div style={{ display:'flex', alignItems:'center', justifyContent:'space-between', marginBottom:18 }}>
@@ -136,7 +136,7 @@ function LeadDetailScreen({ lead, onAccept, onBack }) {
   };
 
   return (
-    <div data-screen-label="10 Lead Detail" style={{ height:'100%', display:'flex', flexDirection:'column', background:'var(--bg)' }}>
+    <div data-screen-label="10 Lead Detail" style={{ flex:1, display:'flex', flexDirection:'column', background:'var(--bg)' }}>
       <div style={{ padding:'20px 22px 14px', display:'flex', alignItems:'center', gap:12, borderBottom:'1px solid var(--bdr)', background:'var(--surf)' }}>
         <button onClick={onBack} style={bkBtn}><Icon name="chevron_l" size={18} color="var(--t2)"/></button>
         <div style={{ flex:1 }}>
@@ -257,7 +257,7 @@ function ContactRevealScreen({ lead, onBack }) {
   });
 
   return (
-    <div data-screen-label="11 Contact Reveal" style={{ height:'100%', display:'flex', flexDirection:'column', background:'var(--bg)' }}>
+    <div data-screen-label="11 Contact Reveal" style={{ flex:1, display:'flex', flexDirection:'column', background:'var(--bg)' }}>
       <div style={{ padding:'20px 22px 14px', display:'flex', alignItems:'center', gap:12, borderBottom:'1px solid var(--bdr)', background:'var(--surf)' }}>
         <button onClick={onBack} style={bkBtn}><Icon name="chevron_l" size={18} color="var(--t2)"/></button>
         <div style={{ fontSize:16, fontWeight:700, color:'var(--t1)' }}>Contact Unlocked</div>
@@ -353,7 +353,7 @@ function ContactRevealScreen({ lead, onBack }) {
 // ── Broker Profile ───────────────────────────────────────────
 function BrokerProfileScreen({ onBack, onSettings }) {
   return (
-    <div data-screen-label="12 Broker Profile" style={{ height:'100%', overflowY:'auto', background:'var(--bg)', paddingBottom:80 }}>
+    <div data-screen-label="12 Broker Profile" style={{ flex:1, overflowY:'auto', background:'var(--bg)', paddingBottom:80 }}>
       <div style={{ padding:'22px 22px 0' }}>
         {/* Header */}
         <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom:24 }}>

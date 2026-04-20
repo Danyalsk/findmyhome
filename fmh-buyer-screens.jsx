@@ -34,7 +34,7 @@ function LandingBuyerScreen({ userName, onPost, onViewReqs, onViewNotifs }) {
   const greet = hour < 12 ? 'Good morning' : hour < 17 ? 'Good afternoon' : 'Good evening';
 
   return (
-    <div data-screen-label="04 Home" style={{ height:'100%', overflowY:'auto', background:'var(--bg)', paddingBottom:80 }}>
+    <div data-screen-label="04 Home" style={{ flex:1, overflowY:'auto', background:'var(--bg)', paddingBottom:80 }}>
       <div style={{ padding:'22px 22px 0' }}>
         {/* Greeting */}
         <div style={{ display:'flex', alignItems:'center', justifyContent:'space-between', marginBottom:24 }}>
@@ -118,7 +118,7 @@ function MyRequirementsScreen({ onPost, onBack }) {
   const filtered = MOCK_REQUIREMENTS.filter(r => tab === 'all' || r.status === tab);
 
   return (
-    <div data-screen-label="05 My Requirements" style={{ height:'100%', overflowY:'auto', background:'var(--bg)', paddingBottom:80 }}>
+    <div data-screen-label="05 My Requirements" style={{ flex:1, overflowY:'auto', background:'var(--bg)', paddingBottom:80 }}>
       <div style={{ padding:'22px 22px 0' }}>
         <div style={{ fontSize:22, fontWeight:700, color:'var(--t1)', letterSpacing:'-0.02em', marginBottom:18 }}>My Requirements</div>
         <div style={{ display:'flex', gap:8, marginBottom:20 }}>
@@ -296,7 +296,7 @@ function FormScreen({ onComplete, onBack }) {
   ];
 
   return (
-    <div data-screen-label="06 Post Requirement" style={{ height:'100%', display:'flex', flexDirection:'column', background:'var(--bg)' }}>
+    <div data-screen-label="06 Post Requirement" style={{ flex:1, display:'flex', flexDirection:'column', background:'var(--bg)' }}>
       <div style={{ padding:'20px 22px 18px' }}>
         <div style={{ display:'flex', alignItems:'center', gap:12, marginBottom:0 }}>
           <button onClick={()=>go(-1)} style={buyerBackBtn}><Icon name="chevron_l" size={18} color="var(--t2)"/></button>
@@ -328,7 +328,7 @@ function PremiumScreen({ onAccept, onSkip }) {
   const ok = ready && calls && confirm;
 
   return (
-    <div data-screen-label="07 Priority Matching" style={{ height:'100%', display:'flex', flexDirection:'column', background:'var(--bg)' }}>
+    <div data-screen-label="07 Priority Matching" style={{ flex:1, display:'flex', flexDirection:'column', background:'var(--bg)' }}>
       <div style={{ flex:1, overflowY:'auto', padding:'22px 22px 100px' }}>
         <div style={{ display:'inline-flex', alignItems:'center', gap:7, padding:'7px 13px', borderRadius:100, background:`linear-gradient(90deg, var(--accent), var(--accent-m))`, marginBottom:22 }}>
           <Icon name="sparkle" size={13} color="white"/>
@@ -385,7 +385,7 @@ function SuccessScreen({ isPriority, onDone }) {
   uE(() => { setTimeout(() => setShow(true), 100); }, []);
 
   return (
-    <div data-screen-label="08 Success" style={{ height:'100%', display:'flex', flexDirection:'column', background:'var(--bg)' }}>
+    <div data-screen-label="08 Success" style={{ flex:1, display:'flex', flexDirection:'column', background:'var(--bg)' }}>
       <div style={{ flex:1, overflowY:'auto', padding:'22px 22px 100px', display:'flex', flexDirection:'column', alignItems:'center', textAlign:'center' }}>
         <div style={{ width:80, height:80, borderRadius:100, background: isPriority ? `linear-gradient(135deg, var(--accent), var(--trust))` : 'var(--trust-l)', display:'flex', alignItems:'center', justifyContent:'center', marginBottom:22, marginTop:32, transform: show ? 'scale(1)' : 'scale(0.55)', opacity: show ? 1 : 0, transition:'all 0.5s cubic-bezier(0.34,1.56,0.64,1)' }}>
           <Icon name="check_circle" size={40} color={isPriority ? 'white' : 'var(--trust)'}/>

@@ -23,7 +23,7 @@ function OnboardingScreen({ onDone, onBroker }) {
   const isLast = idx === SLIDES.length - 1;
 
   return (
-    <div data-screen-label="01 Onboarding" style={{ height:'100%', display:'flex', flexDirection:'column', background:'var(--bg)' }}>
+    <div data-screen-label="01 Onboarding" style={{ flex:1, display:'flex', flexDirection:'column', background:'var(--bg)' }}>
       <div style={{ padding:'16px 20px 0', display:'flex', justifyContent:'space-between', alignItems:'center' }}>
         <div style={{ display:'flex', alignItems:'center', gap:7 }}>
           <div style={{ width:28, height:28, borderRadius:8, background:'var(--accent)', display:'flex', alignItems:'center', justifyContent:'center' }}>
@@ -87,7 +87,7 @@ function AuthPhoneScreen({ onContinue, onBack, userType }) {
   const valid = phone.replace(/\D/g,'').length === 10;
 
   return (
-    <div data-screen-label="02 Phone Auth" style={{ height:'100%', display:'flex', flexDirection:'column', background:'var(--bg)' }}>
+    <div data-screen-label="02 Phone Auth" style={{ flex:1, display:'flex', flexDirection:'column', background:'var(--bg)' }}>
       <div style={{ padding:'56px 24px 0', flex:1 }}>
         <button onClick={onBack} style={backBtn}><Icon name="chevron_l" size={18} color="var(--t2)"/></button>
         <div style={{ marginTop:32, marginBottom:32 }}>
@@ -172,7 +172,7 @@ function AuthOTPScreen({ phone, onVerified, onBack }) {
   const masked = phone.replace(/(\d{5})(\d{5})/, '$1 $2');
 
   return (
-    <div data-screen-label="03 OTP" style={{ height:'100%', display:'flex', flexDirection:'column', background:'var(--bg)' }}>
+    <div data-screen-label="03 OTP" style={{ flex:1, display:'flex', flexDirection:'column', background:'var(--bg)' }}>
       <div style={{ padding:'56px 24px 0', flex:1 }}>
         <button onClick={onBack} style={backBtn}><Icon name="chevron_l" size={18} color="var(--t2)"/></button>
         <div style={{ marginTop:32, marginBottom:36 }}>
